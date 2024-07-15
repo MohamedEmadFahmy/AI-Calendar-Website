@@ -24,6 +24,8 @@ const Schedule = ({ schedule, setSchedule, username, password }) => {
 
 	const [aiDone, setAiDone] = useState(false);
 
+	const backendURL = import.meta.env.VITE_BACKEND_URL;
+
 	// const handleTimeChange = (day, times) => {
 	// 	// Ensure times is always an array, even if null or undefined
 	// 	console.log(times);
@@ -45,19 +47,14 @@ const Schedule = ({ schedule, setSchedule, username, password }) => {
 	// };
 
 	const handleTimeChange = (day, index, time) => {
-		// Clone the existing state
 		const updatedTimeRanges = { ...timeRanges };
-
-		// Update the specific time range based on index (0 for start, 1 for end)
 		updatedTimeRanges[day][index] = time ? time.format("HH:mm") : null;
-
-		// Update the state
 		setTimeRanges(updatedTimeRanges);
 	};
 
 	useEffect(() => {
-		console.log(timeRanges);
-	}, [timeRanges]);
+		console.log(schedule);
+	}, [schedule]);
 
 	const renderTimePickers = () => {
 		return (
@@ -138,7 +135,7 @@ const Schedule = ({ schedule, setSchedule, username, password }) => {
 		try {
 			setLoading(true);
 			console.log(username, password, timeRanges);
-			await axios.post("http://localhost:3000/update_schedule", {
+			await axios.post(`${backendURL}/update_schedule`, {
 				username: username,
 				password: password,
 				schedule: timeRanges,
@@ -160,7 +157,7 @@ const Schedule = ({ schedule, setSchedule, username, password }) => {
 			setLoading(true);
 
 			const response = await axios.post(
-				"http://localhost:3000/parse_availability",
+				`${backendURL}/parse_availability`,
 				{ message: aiMessage },
 				{
 					headers: {

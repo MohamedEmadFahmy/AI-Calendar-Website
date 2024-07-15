@@ -11,6 +11,8 @@ const Login = ({
 	username,
 	password,
 }) => {
+	const backendURL = import.meta.env.VITE_BACKEND_URL;
+
 	const handleUsernameChange = (e) => {
 		const value = e.target.value;
 		setUsername(value);
@@ -36,7 +38,7 @@ const Login = ({
 			// 	password,
 			// });
 
-			const response = await axios.post("http://localhost:3000/login", {
+			const response = await axios.post(`${backendURL}/login`, {
 				username,
 				password,
 			});
@@ -54,6 +56,8 @@ const Login = ({
 				console.log(response.data.schedule);
 			} else {
 				alert("User does not exist");
+				console.log(`sent username: "${username}"`);
+				console.log(`sent password: "${password}"`);
 			}
 		} catch (error) {
 			console.error("Error checking user existence:", error);
