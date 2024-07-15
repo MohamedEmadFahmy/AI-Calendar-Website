@@ -227,7 +227,15 @@ const Schedule = ({ schedule, setSchedule, username, password }) => {
 							</h1>
 							<div className="flex flex-col gap-5">
 								{daysOfWeek.map((day) => {
-									const [startTime, endTime] = schedule[day];
+									// const [startTime, endTime] = schedule[day];
+									const startTime = moment(
+										schedule[day][0],
+										"HH:mm"
+									).format("h:mm A");
+									const endTime = moment(
+										schedule[day][1],
+										"HH:mm"
+									).format("h:mm A");
 									return (
 										<div
 											key={day}
