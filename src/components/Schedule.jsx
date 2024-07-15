@@ -247,13 +247,13 @@ const Schedule = ({ schedule, setSchedule, username, password }) => {
 											<div className="w-[10vw]">
 												<div className="text-lg text-gray-800">
 													Start Time:
-													{startTime != undefined
+													{startTime != "Invalid date"
 														? startTime
 														: "N/A"}
 												</div>
 												<div className="text-lg text-gray-800">
 													End Time:
-													{endTime != undefined
+													{endTime != "Invalid date"
 														? endTime
 														: "N/A"}
 												</div>
